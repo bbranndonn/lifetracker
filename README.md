@@ -16,31 +16,23 @@ Sign-in is private — here’s the app with sample data, plus the Google Sheet 
 
 ### Light version
 
-| Dashboard | Daily Log |
+| Dashboard | Goals |
 | --- | --- |
-| ![Dashboard Light](public/images/Dashboard-Light.jpg) | ![Daily Log Light](public/images/Daily_Log-Light.jpg) |
+| ![Dashboard Light](public/images/Dashboard-Light.jpg) | ![Goals Light](public/images/Goals-Light.jpg) |
 
-| Activities | Goals |
+| Activities | Google Sheet |
 | --- | --- |
-| ![Activities Light](public/images/Activities-Light.jpg) | ![Goals Light](public/images/Goals-Light.jpg) |
-
-| Trends | Google Sheet |
-| --- | --- |
-| ![Trends Light](public/images/Trends-Light.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
+| ![Activities Light](public/images/Activities-Light.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
 
 ### Dark version
 
-| Dashboard | Daily Log |
+| Dashboard | Goals |
 | --- | --- |
-| ![Dashboard Dark](public/images/Dashboard-Dark.jpg) | ![Daily Log Dark](public/images/Daily_Log-Dark.jpg) |
+| ![Dashboard Dark](public/images/Dashboard-Dark.jpg) | ![Goals Dark](public/images/Goals-Dark.jpg) |
 
-| Activities | Goals |
+| Activities | Google Sheet |
 | --- | --- |
-| ![Activities Dark](public/images/Activities-Dark.jpg) | ![Goals Dark](public/images/Goals-Dark.jpg) |
-
-| Trends | Google Sheet |
-| --- | --- |
-| ![Trends Dark](public/images/Trends-Dark.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
+| ![Activities Dark](public/images/Activities-Dark.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
 
 ---
 

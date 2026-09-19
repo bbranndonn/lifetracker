@@ -9,7 +9,8 @@ export function readConfig(env={}) {
  const days=Number(env.VITE_SESSION_DAYS||7);
  const errors=[];let sheet='';
  if(!clientId.endsWith('.apps.googleusercontent.com'))errors.push('Set VITE_GOOGLE_CLIENT_ID to your OAuth web client ID.');
- try{sheet=sheetId(env.VITE_SHEET_ID||'')}catch{errors.push('Set VITE_SHEET_ID to a spreadsheet ID or full Google Sheets URL.')}
+ // A missing or invalid optional default must not prevent Google sign-in.
+ try{sheet=sheetId(env.VITE_SHEET_ID||'')}catch{}
  if(!allowedEmails.length||allowedEmails.some(email=>! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)))errors.push('Set VITE_ALLOWED_EMAILS to comma-separated Google email addresses.');
  if(!Number.isFinite(days)||days<=0)errors.push('VITE_SESSION_DAYS must be a positive number.');
  return {clientId,sheet,allowedEmails,sessionDays:days,errors};

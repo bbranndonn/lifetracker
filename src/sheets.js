@@ -21,7 +21,7 @@ export function authorize(clientId,{prompt='',loginHint}={}) {
  try{client.requestAccessToken({prompt,...(loginHint?{login_hint:loginHint}:{})})}catch(error){finish(error)}
  });
 }
-export function sheetId(input) {const trimmed=input.trim();const m=trimmed.match(/^https:\/\/docs\.google\.com\/spreadsheets\/d\/([\w-]+)/);if(m)return m[1];if(/^[\w-]{20,}$/.test(trimmed))return trimmed;throw new Error('Set VITE_SHEET_ID to a Google Sheets URL or spreadsheet ID.')}
+export function sheetId(input) {const trimmed=input.trim();const m=trimmed.match(/^https:\/\/docs\.google\.com\/spreadsheets\/d\/([\w-]+)/);if(m)return m[1];if(/^[\w-]{20,}$/.test(trimmed))return trimmed;throw new Error('Enter a Google Sheets URL or spreadsheet ID.')}
 export function sourceKey(config){return `${sheetId(config.sheet)}:month-tabs-v1`}
 export async function fetchSheet(config,auth,fetcher=fetch) {
  if(!auth?.token||Date.now()>=auth.expires)throw new Error('Google access expired. Reconnect Google to refresh. Your cached data is still available.');

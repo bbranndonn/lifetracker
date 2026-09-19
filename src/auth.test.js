@@ -11,7 +11,7 @@ function fixture(overrides={}){
 }
 test('env normalization, two emails, default duration and fail-closed setup',()=>{
  assert.deepEqual(config.allowedEmails,['one@example.com','two@example.com']);assert.equal(config.sheet,'abcdefghijklmnopqrstuvwx');assert.equal(config.sessionDays,7);assert.deepEqual(config.errors,[]);
- assert.equal(readConfig().errors.length,3);assert.ok(readConfig({VITE_SESSION_DAYS:'NaN'}).errors.some(e=>e.includes('positive')));
+ assert.equal(readConfig().errors.length,2);assert.ok(readConfig({VITE_SESSION_DAYS:'NaN'}).errors.some(e=>e.includes('positive')));
 });
 test('missing, malformed, denied, expired and excessive sessions are rejected',()=>{
  for(const value of [null,{}, {email:'outsider@example.com',expiresAt:2000},{email:'one@example.com',expiresAt:999},{email:'one@example.com',expiresAt:'2000'},{email:'one@example.com',expiresAt:1000+8*DAY}])assert.equal(validSession(value,config,1000),null);
@@ -46,4 +46,9 @@ test('concurrent syncs share one request and cross-tab signout invalidates renew
  let finish;const f=fixture({request:()=>new Promise(resolve=>{finish=resolve})});
  f.storage.setItem(SESSION_KEY,JSON.stringify({email:'one@example.com',expiresAt:2000000}));
  const a=f.auth.getToken(),b=f.auth.getToken();await Promise.resolve();f.storage.removeItem(SESSION_KEY);f.auth.syncStorage();finish({token:'late',expires:2000000});await assert.rejects(a,/cancelled/);await assert.rejects(b,/cancelled/);
+});
+
+test('sheet default is optional and never blocks identity configuration',()=>{
+ const env={VITE_GOOGLE_CLIENT_ID:'test.apps.googleusercontent.com',VITE_ALLOWED_EMAILS:'one@example.com'};
+ for(const sheet of ['',undefined,'invalid']){const value=readConfig({...env,VITE_SHEET_ID:sheet});assert.deepEqual(value.errors,[]);assert.equal(value.sheet,'')}
 });

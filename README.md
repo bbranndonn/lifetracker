@@ -14,12 +14,6 @@ Built by **Brandon Alexander**.
 
 Sign-in is private — here’s the app with sample data, plus the Google Sheet that feeds it.
 
-### Google Sheet (source data)
-
-| Google Sheet |
-| --- |
-| ![Google Sheet](public/images/Google_Sheet.jpg) |
-
 ### Light version
 
 | Dashboard | Daily Log |

@@ -69,8 +69,6 @@ Production: [lifetracker-liart.vercel.app](https://lifetracker-liart.vercel.app/
 
 ## Stack (short)
 
-React · Vite · Recharts · Google Sheets API · Vercel
-
-Also used: **Grok Bot** + **Google OAuth**
+Codex + Grok Bot (React · Vite · Recharts · Google Sheets API · Vercel · Google OAuth)
 
 For local setup and env vars, see [`.env.example`](.env.example).

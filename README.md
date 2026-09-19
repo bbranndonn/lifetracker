@@ -6,6 +6,22 @@ I was logging daily activities in a basic spreadsheet so I could review how I sp
 
 **Life Tracker** does that: keep logging in Google Sheets, open a private dashboard anywhere, and see the week at a glance.
 
+Built by **Brandon Alexander**.
+
+---
+
+## Preview
+
+Sample-data screenshots of the app:
+
+Sign-in is private — this is what the dashboard looks like with sample data.
+
+![Dashboard](public/preview/dashboard.svg)
+
+| Goals | Trends |
+| --- | --- |
+| ![Goals](public/preview/goals.svg) | ![Trends](public/preview/trends.svg) |
+
 ---
 
 ## What it does
@@ -32,7 +48,7 @@ Product direction and setup (OAuth, Sheets, deploy) were owned end-to-end; AI co
 
 Production: [lifetracker-liart.vercel.app](https://lifetracker-liart.vercel.app/)
 
-*(Sign-in is limited to approved accounts — the public landing page is intentional.)*
+*(Sign-in is limited to approved accounts — the public landing page shows this preview.)*
 
 ---
 
@@ -47,7 +63,7 @@ Production: [lifetracker-liart.vercel.app](https://lifetracker-liart.vercel.app/
 - Private Google sign-in gate (allowlisted accounts only)
 - ~7-day stay-signed-in session on each device
 - Each person connects their own Google Sheet after login
-- Ready for two people to use the same app on their own devices
+- Landing page + README preview gallery with sample data
 
 ---
 

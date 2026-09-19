@@ -10,32 +10,6 @@ Built by **Brandon Alexander**.
 
 ---
 
-## Preview
-
-Sign-in is private — here’s the app with sample data, plus the Google Sheet that feeds it.
-
-### Light version
-
-| Dashboard | Goals |
-| --- | --- |
-| ![Dashboard Light](public/images/Dashboard-Light.jpg) | ![Goals Light](public/images/Goals-Light.jpg) |
-
-| Activities | Google Sheet |
-| --- | --- |
-| ![Activities Light](public/images/Activities-Light.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
-
-### Dark version
-
-| Dashboard | Goals |
-| --- | --- |
-| ![Dashboard Dark](public/images/Dashboard-Dark.jpg) | ![Goals Dark](public/images/Goals-Dark.jpg) |
-
-| Activities | Google Sheet |
-| --- | --- |
-| ![Activities Dark](public/images/Activities-Dark.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
-
----
-
 ## What it does
 
 - Pulls your activity log from **Google Sheets** (read-only)
@@ -64,6 +38,40 @@ Production: [lifetracker-liart.vercel.app](https://lifetracker-liart.vercel.app/
 
 ---
 
+## Stack (short)
+
+Codex + Grok Bot (React · Vite · Recharts · Google Sheets API · Vercel · Google OAuth)
+
+For local setup and env vars, see [`.env.example`](.env.example).
+
+---
+
+## Preview
+
+Sign-in is private — here’s the app with sample data.
+
+### Light version
+
+| Dashboard | Goals |
+| --- | --- |
+| ![Dashboard Light](public/images/Dashboard-Light.jpg) | ![Goals Light](public/images/Goals-Light.jpg) |
+
+| Activities | Trends |
+| --- | --- |
+| ![Activities Light](public/images/Activities-Light.jpg) | ![Trends Light](public/images/Trends-Light.jpg) |
+
+### Dark version
+
+| Dashboard | Goals |
+| --- | --- |
+| ![Dashboard Dark](public/images/Dashboard-Dark.jpg) | ![Goals Dark](public/images/Goals-Dark.jpg) |
+
+| Activities | Trends |
+| --- | --- |
+| ![Activities Dark](public/images/Activities-Dark.jpg) | ![Trends Dark](public/images/Trends-Dark.jpg) |
+
+---
+
 ## Updates
 
 ### App initially created — September 18, 2026
@@ -76,11 +84,3 @@ Production: [lifetracker-liart.vercel.app](https://lifetracker-liart.vercel.app/
 - ~7-day stay-signed-in session on each device
 - Each person connects their own Google Sheet after login
 - Landing page + README preview gallery with sample data
-
----
-
-## Stack (short)
-
-Codex + Grok Bot (React · Vite · Recharts · Google Sheets API · Vercel · Google OAuth)
-
-For local setup and env vars, see [`.env.example`](.env.example).

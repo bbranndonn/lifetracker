@@ -3,6 +3,7 @@ import {BarChart3,Leaf,Loader2} from 'lucide-react';
 import SheetConnection from './SheetConnection.jsx';
 import {createAuth,readConfig,SESSION_KEY} from './auth.js';
 import {loadIdentity} from './sheets.js';
+import {landingGallery} from './landingPreviews.js';
 const config=readConfig(import.meta.env);
 const auth=createAuth(config);
 export default function AuthGate(){
@@ -21,5 +22,34 @@ export default function AuthGate(){
  useEffect(()=>{if(!session)document.documentElement.dataset.theme='light'},[session]);
  async function signIn(){setBusy(true);setError('');try{if(!ready){await loadIdentity();setReady(true);setError('Google is ready. Choose Sign in with Google again.');return}await auth.getToken(true)}catch(e){setError(e.message)}finally{setBusy(false)}}
  if(session)return <SheetConnection key={session.email} session={session} authClient={auth} connection={config}/>;
- return <main className="landing"><section className="landing-card"><div className="brand"><span className="brand-mark"><BarChart3 size={24}/></span>life<span className="brand-light">tracker</span><span className="brand-period">.</span></div><Leaf className="landing-leaf" size={38}/><div className="eyebrow">A LITTLE MORE INTENTIONAL</div><h1>Your time.<br/>Your priorities.</h1><p>A quiet space to reflect on your days and make room for what matters.</p><button className="primary" disabled={busy||!!config.errors.length} onClick={signIn}>{busy&&<Loader2 size={17} className="spin"/>}{busy?'Signing in…':'Sign in with Google'}</button><small>Private access for invited accounts.</small>{error&&<p role="alert" className="alert">{error}</p>}{!!config.errors.length&&<div role="alert" className="notice"><strong>Connection setup needed</strong>{import.meta.env.DEV?<><p>Add these values to .env.local, then restart Vite:</p><ul>{config.errors.map(message=><li key={message}>{message}</li>)}</ul></>:<p>The app owner needs to configure Google sign-in before this space is available.</p>}</div>}</section></main>;
+ return <main className="landing">
+  <div className="landing-layout">
+   <section className="landing-card">
+    <div className="brand"><span className="brand-mark"><BarChart3 size={24}/></span>life<span className="brand-light">tracker</span><span className="brand-period">.</span></div>
+    <Leaf className="landing-leaf" size={38}/>
+    <div className="eyebrow">A LITTLE MORE INTENTIONAL</div>
+    <h1>Your time.<br/>Your priorities.</h1>
+    <p>A quiet space to reflect on your days and make room for what matters.</p>
+    <button className="primary" disabled={busy||!!config.errors.length} onClick={signIn}>{busy&&<Loader2 size={17} className="spin"/>}{busy?'Signing in…':'Sign in with Google'}</button>
+    <p className="landing-access">Private access for invited accounts. <span className="landing-credit">Built by Brandon Alexander</span></p>
+    {error&&<p role="alert" className="alert">{error}</p>}
+    {!!config.errors.length&&<div role="alert" className="notice"><strong>Connection setup needed</strong>{import.meta.env.DEV?<><p>Add these values to .env.local, then restart Vite:</p><ul>{config.errors.map(message=><li key={message}>{message}</li>)}</ul></>:<p>The app owner needs to configure Google sign-in before this space is available.</p>}</div>}
+   </section>
+   <section className="landing-gallery" aria-label="Product preview with sample data">
+    <div className="landing-gallery-copy">
+     <div className="eyebrow">PREVIEW</div>
+     <h2>See what the dashboard looks like</h2>
+     <p>Sample data only — sign in to connect your own sheet.</p>
+    </div>
+    <div className="landing-gallery-grid">
+     {landingGallery.map(item=>(
+      <figure key={item.label} className="landing-shot">
+       <img src={item.src} alt={item.alt} loading="lazy"/>
+       <figcaption>{item.label}</figcaption>
+      </figure>
+     ))}
+    </div>
+   </section>
+  </div>
+ </main>;
 }

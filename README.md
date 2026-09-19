@@ -12,15 +12,39 @@ Built by **Brandon Alexander**.
 
 ## Preview
 
-Sample-data screenshots of the app:
+Sign-in is private — here’s the app with sample data, plus the Google Sheet that feeds it.
 
-Sign-in is private — this is what the dashboard looks like with sample data.
+### Google Sheet (source data)
 
-![Dashboard](public/images/Dashboard-Light.jpg)
+![Google Sheet](public/images/Google_Sheet.jpg)
 
-| Goals | Trends |
+### Light version
+
+| Dashboard | Daily Log |
 | --- | --- |
-| ![Goals](public/images/Goals-Light.jpg) | ![Trends](public/images/Trends-Light.jpg) |
+| ![Dashboard Light](public/images/Dashboard-Light.jpg) | ![Daily Log Light](public/images/Daily_Log-Light.jpg) |
+
+| Activities | Goals |
+| --- | --- |
+| ![Activities Light](public/images/Activities-Light.jpg) | ![Goals Light](public/images/Goals-Light.jpg) |
+
+| Trends |
+| --- |
+| ![Trends Light](public/images/Trends-Light.jpg) |
+
+### Dark version
+
+| Dashboard | Daily Log |
+| --- | --- |
+| ![Dashboard Dark](public/images/Dashboard-Dark.jpg) | ![Daily Log Dark](public/images/Daily_Log-Dark.jpg) |
+
+| Activities | Goals |
+| --- | --- |
+| ![Activities Dark](public/images/Activities-Dark.jpg) | ![Goals Dark](public/images/Goals-Dark.jpg) |
+
+| Trends |
+| --- |
+| ![Trends Dark](public/images/Trends-Dark.jpg) |
 
 ---
 

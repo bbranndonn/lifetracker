@@ -6,13 +6,22 @@ export function loadIdentity() {
  if(loading)return loading;
  loading=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client';script.async=true;const timer=setTimeout(()=>{script.remove();loading=null;reject(new Error('Google sign-in timed out. Check your connection and retry.'))},15000);script.onload=()=>{clearTimeout(timer);resolve()};script.onerror=()=>{clearTimeout(timer);script.remove();loading=null;reject(new Error('Google sign-in could not load. Check your connection or content blocker.'))};document.head.appendChild(script)});return loading;
 }
-export function authorize(clientId) {
- if(!clientId.trim().endsWith('.apps.googleusercontent.com'))return Promise.reject(new Error('Enter a valid Google OAuth web client ID in Settings.'));
+export function authorize(clientId,{prompt='',loginHint}={}) {
+ if(!clientId.trim().endsWith('.apps.googleusercontent.com'))return Promise.reject(new Error('Set a valid VITE_GOOGLE_CLIENT_ID.'));
  return new Promise((resolve,reject)=>{
- const client=window.google.accounts.oauth2.initTokenClient({client_id:clientId.trim(),scope:SCOPE,callback:r=>r.error?reject(new Error(`Google authorization failed: ${r.error_description||r.error}`)):!window.google.accounts.oauth2.hasGrantedAllScopes(r,SCOPE)?reject(new Error('Sheets permission was not granted. Reconnect and allow read access.')):resolve({token:r.access_token,expires:Date.now()+Number(r.expires_in)*1000-30000}),error_callback:e=>reject(new Error(e.type==='popup_closed'?'Sign-in was closed. Choose Connect Google to try again.':'Google sign-in could not open. Allow popups for this site and retry.'))});client.requestAccessToken({prompt:''});
+ let settled=false;
+ const finish=(error,value)=>{if(settled)return;settled=true;clearTimeout(timer);error?reject(error):resolve(value)};
+ const timer=setTimeout(()=>finish(new Error('Google sign-in timed out. Choose Connect Google to retry.')),60000);
+ const client=window.google.accounts.oauth2.initTokenClient({client_id:clientId.trim(),scope:`openid email ${SCOPE}`,include_granted_scopes:false,
+ callback:r=>{if(r.error)return finish(new Error('Google authorization needs attention. Choose Connect Google to try again.'));
+ if(!window.google.accounts.oauth2.hasGrantedAllScopes(r,SCOPE,'openid','https://www.googleapis.com/auth/userinfo.email'))return finish(new Error('Google email and read-only Sheets permissions are required. Connect Google and allow access.'));
+ if(!r.access_token||!Number.isFinite(Number(r.expires_in))||Number(r.expires_in)<=30)return finish(new Error('Google returned an invalid access token. Please retry.'));
+ finish(null,{token:r.access_token,expires:Date.now()+Number(r.expires_in)*1000-30000})},
+ error_callback:()=>finish(new Error('Google sign-in could not complete. Choose Connect Google and allow popups to retry.'))});
+ try{client.requestAccessToken({prompt,...(loginHint?{login_hint:loginHint}:{})})}catch(error){finish(error)}
  });
 }
-export function sheetId(input) {const trimmed=input.trim();const m=trimmed.match(/^https:\/\/docs\.google\.com\/spreadsheets\/d\/([\w-]+)/);if(m)return m[1];if(/^[\w-]{20,}$/.test(trimmed))return trimmed;throw new Error('Enter a Google Sheets URL or spreadsheet ID in Settings.')}
+export function sheetId(input) {const trimmed=input.trim();const m=trimmed.match(/^https:\/\/docs\.google\.com\/spreadsheets\/d\/([\w-]+)/);if(m)return m[1];if(/^[\w-]{20,}$/.test(trimmed))return trimmed;throw new Error('Enter a Google Sheets URL or spreadsheet ID.')}
 export function sourceKey(config){return `${sheetId(config.sheet)}:month-tabs-v1`}
 export async function fetchSheet(config,auth,fetcher=fetch) {
  if(!auth?.token||Date.now()>=auth.expires)throw new Error('Google access expired. Reconnect Google to refresh. Your cached data is still available.');
@@ -23,7 +32,7 @@ export async function fetchSheet(config,auth,fetcher=fetch) {
 async function requestGoogle(url,auth,fetcher) {
  let response;
  try {response=await fetcher(url,{headers:{Authorization:`Bearer ${auth.token}`},signal:AbortSignal.timeout(20000)})}catch{throw new Error('Could not reach Google Sheets. Check your connection and retry. Cached data has been retained.')}
- if(!response.ok){const messages={401:'Google access expired. Reconnect Google.',403:'Access denied. Enable the Sheets API and make sure this Google account can open the sheet.',404:'Spreadsheet not found. Check the URL and account.',400:'Invalid sheet range. A tab may have changed; retry to discover the latest tab names.',429:'Google is rate limiting requests. Please retry in a few minutes.'};throw new Error(messages[response.status]||`Google Sheets returned ${response.status}. Retry shortly.`)}
+ if(!response.ok){const messages={401:'Google access expired. Reconnect Google.',403:'Access denied. Enable the Sheets API and make sure this Google account can open the sheet.',404:'Spreadsheet not found. Check the URL and account.',400:'Invalid sheet range. A tab may have changed; retry to discover the latest tab names.',429:'Google is rate limiting requests. Please retry in a few minutes.'};throw Object.assign(new Error(messages[response.status]||`Google Sheets returned ${response.status}. Retry shortly.`),{status:response.status})}
  return response.json();
 }
 export const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];

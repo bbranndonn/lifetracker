@@ -16,11 +16,11 @@ Sample-data screenshots of the app:
 
 Sign-in is private — this is what the dashboard looks like with sample data.
 
-![Dashboard](public/preview/dashboard.jpg)
+![Dashboard](public/images/Dashboard-Light.jpg)
 
 | Goals | Trends |
 | --- | --- |
-| ![Goals](public/preview/goals.jpg) | ![Trends](public/preview/trends.jpg) |
+| ![Goals](public/images/Goals-Light.jpg) | ![Trends](public/images/Trends-Light.jpg) |
 
 ---
 

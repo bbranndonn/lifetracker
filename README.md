@@ -16,7 +16,9 @@ Sign-in is private — here’s the app with sample data, plus the Google Sheet 
 
 ### Google Sheet (source data)
 
-![Google Sheet](public/images/Google_Sheet.jpg)
+| Google Sheet |
+| --- |
+| ![Google Sheet](public/images/Google_Sheet.jpg) |
 
 ### Light version
 
@@ -28,9 +30,9 @@ Sign-in is private — here’s the app with sample data, plus the Google Sheet 
 | --- | --- |
 | ![Activities Light](public/images/Activities-Light.jpg) | ![Goals Light](public/images/Goals-Light.jpg) |
 
-| Trends |
-| --- |
-| ![Trends Light](public/images/Trends-Light.jpg) |
+| Trends | Google Sheet |
+| --- | --- |
+| ![Trends Light](public/images/Trends-Light.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
 
 ### Dark version
 
@@ -42,9 +44,9 @@ Sign-in is private — here’s the app with sample data, plus the Google Sheet 
 | --- | --- |
 | ![Activities Dark](public/images/Activities-Dark.jpg) | ![Goals Dark](public/images/Goals-Dark.jpg) |
 
-| Trends |
-| --- |
-| ![Trends Dark](public/images/Trends-Dark.jpg) |
+| Trends | Google Sheet |
+| --- | --- |
+| ![Trends Dark](public/images/Trends-Dark.jpg) | ![Google Sheet](public/images/Google_Sheet.jpg) |
 
 ---
 

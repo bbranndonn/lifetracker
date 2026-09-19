@@ -6,7 +6,7 @@ I was logging daily activities in a basic spreadsheet so I could review how I sp
 
 **Life Tracker** does that: keep logging in Google Sheets, open a private dashboard anywhere, and see the week at a glance.
 
-Built by **Brandon Alexander**.
+Built by **Brandon Alexander**, with **Grok Bot** + **Google OAuth**.
 
 ---
 
@@ -16,11 +16,11 @@ Sample-data screenshots of the app:
 
 Sign-in is private — this is what the dashboard looks like with sample data.
 
-![Dashboard](public/preview/dashboard.svg)
+![Dashboard](public/preview/dashboard.jpg)
 
 | Goals | Trends |
 | --- | --- |
-| ![Goals](public/preview/goals.svg) | ![Trends](public/preview/trends.svg) |
+| ![Goals](public/preview/goals.jpg) | ![Trends](public/preview/trends.jpg) |
 
 ---
 
@@ -29,7 +29,7 @@ Sign-in is private — this is what the dashboard looks like with sample data.
 - Pulls your activity log from **Google Sheets** (read-only)
 - Shows time by category, goals, streaks, and trends
 - Works as a **web app** on desktop and mobile
-- **Private sign-in** — only allowlisted Google accounts get in
+- **Private sign-in** — only allowlisted Google accounts get in (Google OAuth)
 - Supports **two people, two sheets, one app URL** (each person connects their own spreadsheet after login)
 
 ---
@@ -37,8 +37,10 @@ Sign-in is private — this is what the dashboard looks like with sample data.
 ## How it was built
 
 1. **Codex** — built the app and iterated on features  
-2. **GitHub** — source of truth for the codebase  
-3. **Vercel** — hosted the live web app  
+2. **Grok Bot** — product direction, setup, and shipping help  
+3. **Google OAuth** — private sign-in for invited accounts  
+4. **GitHub** — source of truth for the codebase  
+5. **Vercel** — hosted the live web app  
 
 Product direction and setup (OAuth, Sheets, deploy) were owned end-to-end; AI coding agents helped ship the implementation fast.
 
@@ -69,6 +71,6 @@ Production: [lifetracker-liart.vercel.app](https://lifetracker-liart.vercel.app/
 
 ## Stack (short)
 
-React · Vite · Recharts · Google Sheets API · Vercel
+React · Vite · Recharts · Google Sheets API · Google OAuth · Vercel
 
 For local setup and env vars, see [`.env.example`](.env.example).

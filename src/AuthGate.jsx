@@ -32,13 +32,15 @@ export default function AuthGate(){
     <h1>Your time.<br/>Your priorities.</h1>
     <p>A quiet space to reflect on your days and make room for what matters.</p>
     <button className="primary" disabled={busy||!!config.errors.length} onClick={signIn}>{busy&&<Loader2 size={17} className="spin"/>}{busy?'Signing in…':'Sign in with Google'}</button>
-    <p className="landing-access">Under Private Access for Invited Accounts.</p>
+    <p className="landing-access">Private access for invited accounts. <span className="landing-credit">Built by Brandon Alexander</span></p>
     {error&&<p role="alert" className="alert">{error}</p>}
     {!!config.errors.length&&<div role="alert" className="notice"><strong>Connection setup needed</strong>{import.meta.env.DEV?<><p>Add these values to .env.local, then restart Vite:</p><ul>{config.errors.map(message=><li key={message}>{message}</li>)}</ul></>:<p>The app owner needs to configure Google sign-in before this space is available.</p>}</div>}
    </section>
    <section className="landing-gallery" aria-label="Product preview with sample data">
     <div className="landing-gallery-copy">
      <div className="eyebrow">PREVIEW</div>
+     <h2>See what the dashboard looks like</h2>
+     <p>Sample data only — sign in to connect your own sheet.</p>
     </div>
     <div className="landing-gallery-grid">
      {landingGallery.map(item=>(

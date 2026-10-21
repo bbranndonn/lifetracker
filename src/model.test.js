@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {parseRows,parseDate,monday,addDays,daysBetween,streaks,summarize,categoriesFor,DEFAULTS,applyOverrides,activityKey} from './model.js';
+import {parseRows,parseDate,monday,addDays,daysBetween,streaks,summarize,categoriesFor,DEFAULTS,applyOverrides,activityKey,activityGoals} from './model.js';
 import {fetchSheet,fetchMonthSheets,isMonthTab,sheetId,sourceKey} from './sheets.js';
 const header=['Date','Category','Activity','Minutes','Optional Note'];
 const fixture=parseRows([header,['2026-09-14','Career','Practice',60],['2026-09-15','Fitness','Gym',90],['2026-09-16','Career','Practice',30],['2026-09-07','Career','Practice',45],['2026-09-08','Fitness','Gym',30],['2026-09-20','New category','Walk',120]]).rows;
@@ -42,4 +42,11 @@ test('rediscovers month tabs on refresh and reports no-month, partial and schema
  await assert.rejects(()=>fetchMonthSheets(config,auth,async url=>jsonResponse(url.includes('batchGet')?{valueRanges:[{values:[['Date']]}]}:meta)),/January: Missing 'Category'/);
  const empty=await fetchMonthSheets(config,auth,async url=>jsonResponse(url.includes('batchGet')?{valueRanges:[{}]}:meta));assert.equal(empty.rows.length,0);assert.match(empty.warnings[0],/January: empty/);
  await assert.rejects(()=>fetchMonthSheets(config,null),/expired/);
+});
+test('activity goal achievement: equal weighting, unset targets ignored, period scaling, empty state',()=>{
+ const acts=[{key:'a',minutes:210},{key:'b',minutes:240},{key:'c',minutes:240},{key:'d',minutes:600}];
+ const g=activityGoals(acts,{a:3,b:5,c:4,d:0});
+ assert.equal(g.total,3);assert.equal(g.achieved,2);assert.equal(Math.round(g.percent),67);
+ assert.equal(activityGoals(acts,{a:3},14).achieved,0);
+ const none=activityGoals(acts,{});assert.equal(none.total,0);assert.equal(none.percent,null);
 });

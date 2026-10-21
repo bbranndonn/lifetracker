@@ -65,6 +65,11 @@ export function summarize(rows,categories,start,end,activity='all') {
  const target=byCategory.reduce((s,c)=>s+c.target*60*n/7,0);
  return {selected,total,previous,change:previous?(total-previous)/previous*100:null,byCategory,activities:acts,active:acts.filter(a=>a.minutes>0).length,days,target,progress:target?total/target*100:null,loggedDays:new Set(selected.map(r=>r.date)).size};
 }
+export function activityGoals(activities,targets={},days=7) {
+ const goals=activities.filter(a=>targets[a.key]>0).map(a=>{const target=targets[a.key]*60*days/7;return {...a,target,achieved:a.minutes>=target}});
+ const achieved=goals.filter(g=>g.achieved).length;
+ return {goals,total:goals.length,achieved,percent:goals.length?achieved/goals.length*100:null};
+}
 export function demoRows(today=dayKey()) {
  const names={Career:['Interview Practice – Sales','Job Research','Resume / LinkedIn'],Fitness:['Gym','Run'],Relationships:['Cristina – Quality Time','Family – Calls'],'Mental Health':['Meditation','Reading'],Other:['Life admin']};const rows=[];
  for(let i=55;i>=0;i--){const date=addDays(today,-i);Object.entries(names).forEach(([category,activities],j)=>{if((i+j)%6===0)return;const activity=activities[i%activities.length];rows.push({id:`demo-${i}-${j}`,date,category,activity,minutes:[75,45,90,25,20][j]+((i*7+j*3)%5)*10,note:''})})}return rows;
